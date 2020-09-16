@@ -1152,6 +1152,12 @@ GetApResetStackSize (
   VOID
   )
 {
+  //
+  // No reset stack needed when SEV-ES is disabled
+  //
+  if (!PcdGetBool (PcdSevEsIsEnabled)) {
+    return 0;
+  }
   return AP_RESET_STACK_SIZE * PcdGet32(PcdCpuMaxLogicalProcessorNumber);
 }
 
